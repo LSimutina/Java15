@@ -37,4 +37,6 @@ public class Ticket implements Comparable<Ticket> {
     public int compareTo(Ticket o) {
         return price - o.price;
     }
+
+
 }
