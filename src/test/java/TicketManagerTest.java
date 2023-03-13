@@ -6,7 +6,7 @@ public class TicketManagerTest {
     TicketManager manager = new TicketManager(repo);
 
     Ticket ticket1 = new Ticket(1, 800, "MSK", "SBP", 60); //москва-питер
-    Ticket ticket2 = new Ticket(2, 200, "SPB", "MSK", 50); //питер-москва
+    Ticket ticket2 = new Ticket(2, 200, "SBP", "MSK", 50); //питер-москва
     Ticket ticket3 = new Ticket(3, 1_050, "MSK", "SMR", 20); //москва-самара
     Ticket ticket4 = new Ticket(4, 400, "MSK", "SBP", 70); //москва-питер
     Ticket ticket5 = new Ticket(5, 700, "MSK", "SBP", 65); //москва-питер
@@ -79,6 +79,48 @@ public class TicketManagerTest {
 
         Ticket[] expected = {ticket13, ticket9, ticket4, ticket5, ticket1};
         Ticket[] actual = manager.findAll("MSK", "SBP");
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test // Проверка отсортированых билетов от МСК до СБП по цене
+    public void testTicketNull() {
+        manager.add(ticket1);
+        manager.add(ticket2);
+        manager.add(ticket3);
+        manager.add(ticket4);
+        manager.add(ticket5);
+        manager.add(ticket6);
+        manager.add(ticket7);
+        manager.add(ticket8);
+        manager.add(ticket9);
+        manager.add(ticket10);
+        manager.add(ticket11);
+        manager.add(ticket12);
+        manager.add(ticket13);
+
+        Ticket[] expected = {};
+        Ticket[] actual = manager.findAll("PNZ", "SBP");
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test // Проверка отсортированых билетов от МСК до СБП по цене
+    public void testTicketOne() {
+        manager.add(ticket1);
+        manager.add(ticket2);
+        manager.add(ticket3);
+        manager.add(ticket4);
+        manager.add(ticket5);
+        manager.add(ticket6);
+        manager.add(ticket7);
+        manager.add(ticket8);
+        manager.add(ticket9);
+        manager.add(ticket10);
+        manager.add(ticket11);
+        manager.add(ticket12);
+        manager.add(ticket13);
+
+        Ticket[] expected = {ticket2};
+        Ticket[] actual = manager.findAll("SBP", "MSK");
         Assertions.assertArrayEquals(expected, actual);
     }
 }
